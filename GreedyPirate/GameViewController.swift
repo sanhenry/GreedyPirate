@@ -10,7 +10,7 @@ import UIKit
 import SpriteKit
 
 class GameViewController: UIViewController {
-
+    /*
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -28,10 +28,32 @@ class GameViewController: UIViewController {
             
             skView.presentScene(scene)
         }
+    }*/
+
+    //Use this method to ensure that the scene size is layout after view is determined. The width/height of landscape/portrait is reversed
+    override func viewWillLayoutSubviews()
+    {
+        super.viewWillLayoutSubviews();
+        if let scene = GameScene(fileNamed:"GameScene") {
+            // Configure the view.
+            let skView = self.view as! SKView
+            skView.showsFPS = true
+            skView.showsNodeCount = true
+            
+            /* Sprite Kit applies additional optimizations to improve rendering performance */
+            skView.ignoresSiblingOrder = true
+            
+            /* Set the scale mode to scale to fit the window */
+            scene.scaleMode = .AspectFill
+            /* get the size from view */
+            scene.size = skView.bounds.size
+            skView.presentScene(scene)
+        }
     }
 
+
     override func shouldAutorotate() -> Bool {
-        return true
+        return false
     }
 
     override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
